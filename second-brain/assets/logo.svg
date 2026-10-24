@@ -1,0 +1,54 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background plate -->
+  <rect width="512" height="512" fill="#4A5568"/>
+  
+  <!-- Brain icon composed of git nodes and markdown -->
+  <!-- Left hemisphere - Git nodes -->
+  <g id="left-hemisphere">
+    <!-- Git commit nodes -->
+    <circle cx="180" cy="200" r="16" fill="#48BB78" stroke="#2F855A" stroke-width="3"/>
+    <circle cx="140" cy="250" r="16" fill="#48BB78" stroke="#2F855A" stroke-width="3"/>
+    <circle cx="180" cy="300" r="16" fill="#48BB78" stroke="#2F855A" stroke-width="3"/>
+    <circle cx="220" cy="250" r="20" fill="#68D391" stroke="#2F855A" stroke-width="3"/>
+    
+    <!-- Connections -->
+    <line x1="180" y1="216" x2="140" y2="234" stroke="#68D391" stroke-width="3" stroke-linecap="round"/>
+    <line x1="140" y1="266" x2="180" y2="284" stroke="#68D391" stroke-width="3" stroke-linecap="round"/>
+    <line x1="180" y1="216" x2="220" y2="230" stroke="#68D391" stroke-width="3" stroke-linecap="round"/>
+    <line x1="220" y1="270" x2="180" y2="284" stroke="#68D391" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Right hemisphere - Markdown notes -->
+  <g id="right-hemisphere">
+    <!-- Note pages -->
+    <rect x="280" y="185" width="80" height="90" rx="4" fill="#E2E8F0" stroke="#CBD5E0" stroke-width="2"/>
+    <rect x="300" y="195" width="60" height="70" rx="4" fill="#FFFFFF" stroke="#CBD5E0" stroke-width="2"/>
+    
+    <!-- Markdown lines -->
+    <line x1="310" y1="210" x2="350" y2="210" stroke="#4A5568" stroke-width="3" stroke-linecap="round"/>
+    <line x1="310" y1="225" x2="340" y2="225" stroke="#4A5568" stroke-width="2" stroke-linecap="round"/>
+    <line x1="310" y1="235" x2="345" y2="235" stroke="#4A5568" stroke-width="2" stroke-linecap="round"/>
+    <line x1="310" y1="245" x2="335" y2="245" stroke="#4A5568" stroke-width="2" stroke-linecap="round"/>
+    
+    <!-- Wikilink brackets -->
+    <text x="310" y="260" font-family="monospace" font-size="20" fill="#805AD5">[[</text>
+    <text x="335" y="260" font-family="monospace" font-size="20" fill="#805AD5">]]</text>
+  </g>
+  
+  <!-- Central connection - sync arrow -->
+  <g id="sync-arrow">
+    <path d="M 230 250 Q 256 240 280 245" stroke="#F6AD55" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+    <path d="M 280 255 Q 256 260 230 250" stroke="#F6AD55" stroke-width="4" fill="none"/>
+  </g>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#F6AD55"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="256" y="370" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Second</text>
+  <text x="256" y="420" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Brain</text>
+</svg>

@@ -1,286 +1,299 @@
 # Second Brain
 
-> Shared, user-owned memory for AI agents in a plain-markdown Obsidian vault synced through git.
+> **Orchestrator-agnostic shared memory for AI agents.** One git-backed Obsidian vault acts as the single source of truth that every agent reads at session start and safely writes back to.
 
-A Cursor/Grok Bot marketplace plugin that gives any team of AI agents persistent context, learned patterns, and a growing knowledge base. Unlike hosted memory solutions (Mem0, Supermemory, Vertiso), your second brain lives in a git repository you control, using plain markdown files that Obsidian can visualize and edit.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## What it does
+## What is Second Brain?
 
-Implements the **Karpathy LLM-wiki pattern**: agents maintain a linked graph of atomic, evergreen notes that compound over time. Multiple agents read from and contribute to a shared vault following a clear protocol.
+A Cursor/Grok Bot plugin that gives teams of AI agents persistent, shared memory through a plain-markdown vault synced via git. Unlike hosted memory solutions (Mem0, Supermemory, Vertiso), your data lives in a git repository you control.
 
-### Core capabilities
+**Works with:**
+- **Grok Bot** — Multiple bots on one box, each with its own folder
+- **Cursor** — IDE agents and cloud agents
+- **Claude Code / Claude Desktop** — Via Claude projects and sessions
+- **Hermes** and other orchestrators
+- **Humans** — Edit in Obsidian with the Obsidian Git plugin
 
-- **Session start**: Pull the vault safely and read protocol + core notes before any task
-- **Writing notes**: Per-agent folders, date-first kebab-case filenames, frontmatter, wikilinks, Inbox for proposed core changes
-- **Safe sync**: Commit with an `<agent>:` prefix using explicit paths only (never `git add -A`), rebase-then-push with retries, conflict handling
-- **Capture learnings**: Record errors, corrections, and decisions back to the vault (the self-improving agent pattern)
-- **Maintenance**: Index and log upkeep, broken wikilink check
-- **Bootstrap**: Set up a new vault with folder layout, protocol, and templates
+## How Sync Works
+
+Every agent and Obsidian share one vault. Safe sync prevents corruption when multiple writers work simultaneously:
+
+```mermaid
+sequenceDiagram
+    participant A as Agent A
+    participant V as Vault (Git)
+    participant O as Obsidian
+    participant B as Agent B
+    
+    Note over A,B: Session Start
+    A->>V: git pull --rebase
+    B->>V: git pull --rebase
+    O->>V: Obsidian Git: pull
+    
+    Note over A,B: Work Phase
+    A->>A: Write to Agents/agent-a/
+    B->>B: Write to Agents/agent-b/
+    O->>O: Human edits Notes/
+    
+    Note over A,B: Safe Sync
+    A->>V: git add Agents/agent-a/ (explicit paths only)
+    A->>V: git commit -m "agent-a: ..."
+    A->>V: git pull --rebase --autostash (3 retries)
+    A->>V: git push
+    
+    B->>V: git add Agents/agent-b/ (explicit paths only)
+    B->>V: git commit -m "agent-b: ..."
+    B->>V: git pull --rebase --autostash (3 retries)
+    B->>V: git push
+    
+    O->>V: Obsidian Git: auto-commit & push
+```
+
+**Key principles:**
+1. **Pull first** — Every session starts with `git pull --rebase`
+2. **Explicit paths only** — Never `git add -A` or `git add .` (prevents staging others' uncommitted work)
+3. **Per-agent folders** — Each agent writes only to `Agents/<name>/`
+4. **Rebase with retries** — Handles concurrent pushes (3 retries with backoff)
+5. **Conflict resolution** — Abort if conflict is outside your scope; resolve if it's your file
+
+## Quick Start
+
+### Grok Bot
+
+1. **Install the plugin:**
+   ```
+   Install "Second Brain" from the Grok Bot plugin marketplace
+   ```
+
+2. **Bootstrap a vault:**
+   ```bash
+   # Set vault path
+   export VAULT_PATH="/home/box/second-brain"
+   
+   # In Grok Bot chat, load the bootstrap-vault skill:
+   # "Bootstrap a new second-brain vault at /home/box/second-brain"
+   
+   # The skill creates:
+   # - Folder structure (Agents/, Notes/, Ideas/, Projects/, etc.)
+   # - AGENTS.md protocol
+   # - Templates and scripts
+   # - Git initialization
+   ```
+
+3. **Add a git remote:**
+   ```bash
+   cd $VAULT_PATH
+   git remote add origin https://github.com/your-username/your-vault.git
+   git push -u origin main
+   ```
+
+4. **First session:**
+   ```
+   In Grok Bot: "Load vault-session-start skill and read my profile"
+   
+   The agent will:
+   - Pull latest vault state
+   - Read AGENTS.md protocol
+   - Read your profile and preferences
+   - Create its Agents/<bot-name>/ folder
+   ```
+
+5. **Write and sync:**
+   ```
+   Ask the bot to do work, then:
+   "Capture your learnings and sync the vault"
+   
+   The agent will:
+   - Create outputs in Agents/<bot-name>/outputs/
+   - Log learnings to Agents/<bot-name>/README.md
+   - Commit with explicit paths
+   - Push to remote
+   ```
+
+### Cursor IDE/Cloud Agents
+
+1. **Install the plugin:**
+   ```
+   Settings → Plugins → Install "Second Brain"
+   ```
+   
+   Or from marketplace: `cursor install second-brain`
+
+2. **Bootstrap a vault:**
+   ```bash
+   export VAULT_PATH="/path/to/vault"
+   
+   # In Cursor agent chat:
+   # "@second-brain bootstrap a new vault"
+   ```
+
+3. **Use in agent sessions:**
+   ```
+   # At start of session:
+   "@second-brain start session"
+   
+   # Agent pulls vault, reads protocol, creates its folder
+   ```
+
+4. **Automatic sync:**
+   ```
+   # After agent writes notes/outputs:
+   "@second-brain sync"
+   
+   # Or the agent calls safe-sync automatically
+   ```
+
+### Claude Desktop / Claude Code
+
+1. **Install skills manually:**
+   ```bash
+   # Clone the plugin
+   git clone https://github.com/andreolf/grokbot-plugins
+   cd grokbot-plugins/second-brain
+   
+   # Copy skills to Claude's skills directory
+   # (path varies by Claude installation)
+   cp -r skills/* ~/.claude/skills/
+   ```
+
+2. **Bootstrap and configure:**
+   ```bash
+   export VAULT_PATH="/path/to/vault"
+   
+   # In Claude chat, reference the bootstrap-vault skill
+   # Claude will create the vault structure
+   ```
+
+3. **Session workflow:**
+   ```
+   # Start: "Load vault-session-start skill"
+   # Work: Claude creates outputs
+   # End: "Load safe-sync skill and push changes"
+   ```
+
+### Obsidian (Human)
+
+1. **Open the vault in Obsidian:**
+   ```
+   File → Open vault → Select your vault directory
+   ```
+
+2. **Install Obsidian Git plugin:**
+   - Settings → Community plugins → Browse
+   - Search "Obsidian Git"
+   - Install and enable
+
+3. **Configure Obsidian Git:**
+   - Auto pull interval: 5 minutes
+   - Auto backup interval: 10 minutes
+   - Commit message: "vault: auto-commit {{date}}"
+   - **Important:** Disable "Stage all files" (keep only modified files)
+
+4. **Work with the vault:**
+   - Edit notes in `Notes/`, `Ideas/`, `Projects/`
+   - View agent outputs in `Agents/<name>/outputs/`
+   - Use graph view to visualize `[[wikilinks]]`
+   - Obsidian Git auto-commits and pushes your changes
 
 ## Skills
 
-| Skill | Use when |
-|---|---|
-| **vault-session-start** | Start of every session and new task — pull, read protocol |
-| **write-note** | Creating outputs, processing inbox, updating knowledge base |
-| **safe-sync** | After any vault write — commit with explicit paths only |
-| **capture-learning** | End of task — record what worked, what failed, patterns |
-| **link-check** | Periodic maintenance — find broken wikilinks, orphan notes |
-| **bootstrap-vault** | First-time setup — create vault structure from scratch |
-| **maintenance** | After creating/modifying notes — update index.md and log.md |
+| Skill | Use when | What it does |
+|---|---|---|
+| **vault-session-start** | Start of every session and new task | Pulls vault, reads AGENTS.md protocol and core notes |
+| **write-note** | Creating outputs, processing inbox | Creates notes with proper frontmatter, wikilinks, naming conventions |
+| **safe-sync** | After any vault write | Commits with explicit paths only, rebase-then-push with 3 retries |
+| **capture-learning** | End of task | Records what worked, what failed, patterns discovered (self-improving agent pattern) |
+| **link-check** | Periodic maintenance, after bulk changes | Finds broken wikilinks and orphaned notes |
+| **bootstrap-vault** | First-time setup | Creates vault structure, protocol, templates, git config |
+| **maintenance** | After modifying knowledge base | Updates index.md and log.md when notes change |
 
-## Why this plugin?
+## Safety Guarantees
 
-### Marketplace gap
+### Never `git add -A`
 
-ClawHub shows strong demand:
-- **Obsidian skill**: 112k downloads
-- **Ontology (typed knowledge graph)**: 201k downloads  
-- **Self-improving agent**: 488k downloads
-
-The Grok Bot marketplace (482 plugins) has **zero git-based memory** plugins. Existing memory solutions are hosted (Mem0, Supermemory, Vertiso) or proprietary (Heptabase, Craft).
-
-### User-owned, portable, debuggable
-
-- **Your data**: Lives in your private git repo, not a vendor's database
-- **Plain text**: Markdown files you can read, edit, grep, and version
-- **Obsidian-compatible**: Visualize the graph, use Obsidian plugins, edit manually
-- **Multi-agent**: Explicit sync protocol prevents concurrent-write corruption
-
-### Proven system
-
-Based on a working 15-agent Obsidian vault. The attached protocol (`AGENTS.md`) and sync script (`sync.sh`) are the live rules generalized for the marketplace.
-
-## Setup
-
-### 1. Install the plugin
-
-**From Cursor/Grok Bot marketplace:**
-```
-cursor install second-brain
-```
-
-Or visit the [Cursor marketplace](https://cursor.com/marketplace) and search for "Second Brain".
-
-**Manual installation** (for development):
-```bash
-# Clone the repository
-git clone https://github.com/andreolf/grokbot-plugins
-cd grokbot-plugins/second-brain
-
-# The plugin structure:
-# second-brain/
-# ├── .cursor-plugin/
-# │   └── plugin.json       # Plugin manifest
-# ├── skills/               # 7 skills
-# ├── scripts/              # Helper scripts
-# └── README.md
-
-# In Cursor: Settings → Plugins → Install from Local Path
-# Point to: /path/to/grokbot-plugins/second-brain
-```
-
-### 2. Configure vault path
+The cardinal rule: **explicit paths only**. Multiple agents write concurrently; staging everything sweeps up their uncommitted work under your name.
 
 ```bash
-export VAULT_PATH="/path/to/your/vault"
-export VAULT_REMOTE="origin"      # optional, default: origin
-export VAULT_BRANCH="main"        # optional, default: main
-```
-
-Or set in your Cursor/Grok Bot environment config.
-
-### 3. Bootstrap a new vault (first-time users)
-
-If you don't have an Obsidian vault yet:
-
-```bash
-# Agent will do this when you load the bootstrap-vault skill
-# Or manually:
-export VAULT_PATH="/path/to/new/vault"
-# Load bootstrap-vault skill in your agent chat
-```
-
-This creates:
-- Folder structure (`Agents/`, `Notes/`, `Ideas/`, `Projects/`, `Inbox/`, etc.)
-- Protocol file (`AGENTS.md`)
-- Core files (`00-Core/Profile.md`, `Preferences.md`, `Active-Projects.md`)
-- Templates (`Templates/Note.md`, `Agent-Output.md`, etc.)
-- Helper scripts (`scripts/vault-sync.sh`)
-- Git repo with initial commit
-
-### 4. Use with existing vault
-
-If you already have an Obsidian vault:
-
-1. **Ensure it's a git repo:**
-   ```bash
-   cd /path/to/vault
-   git status  # Should show a repo
-   ```
-
-2. **Copy the protocol** (or adapt yours):
-   - The plugin expects `AGENTS.md` at the vault root
-   - See `skills/bootstrap-vault/SKILL.md` for the template
-
-3. **Copy the sync script**:
-   ```bash
-   mkdir -p scripts
-   cp /path/to/plugin/scripts/vault-sync.sh scripts/
-   chmod +x scripts/vault-sync.sh
-   ```
-
-4. **Create your agent folder**:
-   ```bash
-   mkdir -p Agents/<your-agent-name>/{outputs,assets,data}
-   cat > Agents/<your-agent-name>/README.md << 'EOF'
-   # Your Agent Name
-   
-   ## Role
-   
-   [Your role]
-   
-   ## Learnings Log
-   
-   (Newest first)
-   EOF
-   ```
-
-### 5. Configure git identity
-
-The vault needs git user config:
-
-```bash
-cd "$VAULT_PATH"
-git config user.name "Agent Name"
-git config user.email "agent@example.com"
-```
-
-Or set globally:
-
-```bash
-export GIT_USER_NAME="Agent Name"
-export GIT_USER_EMAIL="agent@example.com"
-```
-
-## Usage
-
-### Typical agent workflow
-
-```markdown
-1. **Session start**
-   - Agent loads `vault-session-start` skill
-   - Pulls latest vault state
-   - Reads `AGENTS.md`, core files, and own `Agents/<name>/README.md`
-
-2. **Do work**
-   - Agent performs task (research, coding, analysis)
-   - Uses `write-note` skill to create outputs in `Agents/<name>/outputs/`
-   - Follows vault conventions: frontmatter, wikilinks, kebab-case
-
-3. **Sync changes**
-   - Uses `safe-sync` skill or `vault-sync.sh` script
-   - Stages only explicit paths (never `git add -A`)
-   - Commits with `<agent-name>:` prefix
-   - Rebases and pushes (3 retries if concurrent agents pushing)
-
-4. **Capture learnings**
-   - At task end, uses `capture-learning` skill
-   - Logs what worked, what failed, patterns discovered
-   - Updates `Agents/<name>/README.md` learnings log
-
-5. **Maintenance (if touching knowledge base)**
-   - If created/modified `Notes/`, `Ideas/`, or `Projects/`: uses `maintenance` skill
-   - Registers note in `index.md`
-   - Adds dated entry to `log.md`
-```
-
-### Example: Research agent using the vault
-
-```yaml
-Agent: research-bot
-Task: Analyze GitHub plugin marketplace
-
-Workflow:
-1. Load vault-session-start
-   - Pull vault
-   - Read AGENTS.md, Agents/research-bot/README.md
-   
-2. Do research
-   - Query GitHub, scrape data, analyze trends
-   - Use write-note to create: Agents/research-bot/outputs/2026-10-24-github-analysis.md
-   
-3. Sync
-   - vault-sync.sh "research-bot: add github analysis" \
-       Agents/research-bot/outputs/2026-10-24-github-analysis.md \
-       Agents/research-bot/README.md
-   
-4. Capture learning
-   - Update Agents/research-bot/README.md with:
-     ### 2026-10-24: Completed GitHub analysis
-     Learnings:
-     - GitHub API rate limits: 5000/hour authenticated
-     - Plugin categories: skewed toward infra/data (60%)
-     - Pattern: marketplace gaps correlate with ClawHub demand
-```
-
-## Concurrent multi-agent use
-
-**The key rule**: Never `git add -A` or `git add .`
-
-Multiple agents write to the vault simultaneously. Staging everything sweeps up their uncommitted work under your name, corrupting history.
-
-### Safe sync pattern
-
-```bash
-# WRONG - breaks concurrent writes
+# NEVER
 git add -A
-git commit -m "agent: changes"
-git pull --rebase
-git push
+git add .
 
-# RIGHT - explicit paths only
-git add -- Agents/agent-name/ Inbox/specific-file.md
-git commit -m "agent-name: changes"
-git pull --rebase --autostash origin main  # 3 retries if needed
-git push
+# ALWAYS
+git add -- Agents/your-agent/ Inbox/specific-file.md
 ```
 
-The `vault-sync.sh` script implements this correctly:
-
+The `vault-sync.sh` script enforces this:
 ```bash
 ./scripts/vault-sync.sh "agent-name: message" \
   Agents/agent-name/ \
-  Inbox/2026-10-24-proposal.md
+  Inbox/2024-10-24-proposal.md
 ```
 
-### Conflict handling
+### Per-Agent Folders
 
-**If rebase conflicts in your files**: Resolve manually, then `git rebase --continue`.
+Each agent writes only to its own folder:
 
-**If rebase conflicts in files outside your scope**: Abort with `git rebase --abort`, then create a proposal in `Inbox/` instead of forcing.
+```
+Agents/
+├── grok-bot-coding/
+│   ├── README.md
+│   ├── outputs/
+│   └── assets/
+├── cursor-agent/
+│   ├── README.md
+│   └── outputs/
+└── claude-desktop/
+    └── projects/
+        └── my-project/
+```
 
-## Vault structure
+**Agents never edit:**
+- Another agent's folder
+- `00-Core/` (profile, preferences) — propose changes via `Inbox/` instead
+- `raw/` (read-only source files)
+
+### Conflict Handling
+
+**If rebase conflicts in your files:**
+Resolve manually, then continue:
+```bash
+# Edit conflicted file, remove markers
+git add <file>
+git rebase --continue
+git push
+```
+
+**If rebase conflicts outside your scope:**
+Abort and propose via Inbox:
+```bash
+git rebase --abort
+# Create Inbox/2024-10-24-agent-name-proposal.md
+```
+
+### Three Retries
+
+The sync script retries `git pull --rebase` three times with 5-second delays. This handles the common case where two agents push simultaneously.
+
+## Vault Structure
 
 ```
 vault/
-├── AGENTS.md                # Master protocol
+├── AGENTS.md                # Master protocol (read first)
 ├── index.md                 # Vault index
-├── log.md                   # Change log (append-only)
+├── log.md                   # Change log (append-only, newest first)
 │
 ├── 00-Core/                 # User core files
-│   ├── Profile.md
-│   ├── Preferences.md
-│   └── Active-Projects.md
+│   ├── Profile.md           # User background and context
+│   ├── Preferences.md       # Communication and working style
+│   └── Active-Projects.md   # Current projects
 │
 ├── Agents/                  # Per-agent folders
-│   ├── research-bot/
-│   │   ├── README.md        # Role, rules, learnings log
-│   │   ├── outputs/         # Dated outputs (YYYY-MM-DD-*.md)
-│   │   ├── assets/          # Images, media
-│   │   └── data/            # CSV, JSON, working data
-│   └── coding-bot/
-│       └── ...
+│   └── <agent-name>/
+│       ├── README.md        # Role, rules, learnings log
+│       ├── outputs/         # YYYY-MM-DD-*.md dated outputs
+│       ├── assets/          # Images, media
+│       └── data/            # CSV, JSON, working data
 │
 ├── Inbox/                   # Captures, proposals
 ├── Daily/                   # Daily notes
@@ -288,28 +301,28 @@ vault/
 ├── Ideas/                   # Hypotheses, questions
 ├── Projects/                # Project folders
 │   └── project-name/
-│       ├── project-name.md  # Hub
+│       ├── project-name.md      # Hub
 │       └── project-name-log.md  # Append-only log
 │
 ├── Templates/               # Note templates
 ├── Resources/               # Reference material
-├── raw/                     # Source files (read-only for agents)
+├── raw/                     # Source files (PDFs, articles) - read-only
 ├── _archive/                # Archived files
 └── scripts/                 # Helper scripts
-    └── vault-sync.sh
+    └── vault-sync.sh        # Safe sync with retries
 ```
 
-## File conventions
+## File Conventions
 
 ### Naming
 
-- **Dated outputs**: `YYYY-MM-DD-<type>-<slug>.md` (date first)
-- **Knowledge notes**: `kebab-case-title.md` (no spaces, no underscores)
-- **No special chars**: Only lowercase letters, numbers, hyphens
+- **Dated outputs:** `YYYY-MM-DD-<type>-<slug>.md` (date first)
+- **Knowledge notes:** `kebab-case-title.md` (lowercase, hyphens only)
+- **No special characters:** Only letters, numbers, hyphens
 
 ### Frontmatter
 
-Every note requires frontmatter:
+Every note requires YAML frontmatter:
 
 ```yaml
 ---
@@ -318,128 +331,143 @@ agent: <name>                # for agent-output
 project: <project>           # if applicable
 created: YYYY-MM-DD
 tags: [topic1, topic2]       # controlled list
-keywords: [free, words]      # optional, free-form
 source: URL or [[raw/file]]  # optional
 ---
 ```
 
-### Links
+### Wikilinks
 
-Use `[[wikilinks]]`, not markdown links:
+Use `[[wikilinks]]`, not markdown links, for Obsidian's graph:
 
 ```markdown
-[[note-name]]                # Good
-[[note-name|Display Text]]   # Good
-[[folder/note-name]]         # Good for path-based
-
-[note-name](note-name.md)    # Bad - breaks Obsidian graph
+[[note-name]]                # Basic
+[[note-name|Display Text]]   # With alias
+[[folder/note-name]]         # Path-based
 ```
 
-## Maintenance
+## Self-Improving Agent Pattern
 
-### Link health check
+Agents learn from experience by capturing outcomes:
 
-Periodically or after bulk changes:
+1. **Session start:** Read your own `Agents/<name>/README.md` learnings log
+2. **Do task**
+3. **Capture:** Log what worked, what failed, patterns discovered
+4. **Next session:** Apply learned patterns
 
-```bash
-cd "$VAULT_PATH"
-./scripts/vault-link-check.sh  # If you created this helper
+Example learnings log:
 
-# Or use the link-check skill
+```markdown
+## Learnings Log
+
+### 2024-10-24: Vault sync with concurrent writes
+
+**Context:** Two agents pushing simultaneously.
+
+**What worked:** Explicit path staging with 3 retries.
+
+**What failed:** Initial attempt used `git add -A`, corrupted history.
+
+**Pattern:** NEVER stage everything. Always list paths explicitly.
 ```
 
-Finds:
-- Broken wikilinks (links to non-existent files)
-- Orphaned notes (files with no incoming links)
+## FAQ
 
-### Index and log upkeep
+**Q: How is this different from Mem0, Supermemory, or Vertiso?**  
+A: Those are hosted vector databases with proprietary formats. Second Brain is plain markdown in your own git repo. You can read, edit, and version every file. No vendor lock-in.
 
-When adding/modifying `Notes/`, `Ideas/`, or `Projects/`:
+**Q: What if two agents modify the same file?**  
+A: Git rebase will detect the conflict. If it's your file, resolve it. If it's outside your write scope (e.g., another agent's folder), abort and propose the change via `Inbox/` instead.
 
-1. Register in `index.md`
-2. Add dated entry to `log.md` (newest at top)
+**Q: Can I use this without Obsidian?**  
+A: Yes. Obsidian is optional. Agents work with plain markdown files and git. Obsidian adds graph visualization, backlinks, and a visual editor for humans.
 
-The `maintenance` skill automates this.
+**Q: How do I handle secrets?**  
+A: **Never store secrets in the vault.** It's synced to git and shared with all agents. Use environment variables or secret managers instead.
 
-## Obsidian integration (optional)
+**Q: What if the vault gets very large?**  
+A: Git handles thousands of markdown files efficiently. For extreme scale (10k+ files), consider using git submodules to separate project folders, or shallow clones to limit history depth.
 
-For human users with Obsidian desktop:
+**Q: Can I use this with my team?**  
+A: Yes. Share the private git repo with your team. Each person's agents write to separate folders. Humans and agents all pull/push to the same remote.
 
-1. **Open the vault**: File → Open vault → `/path/to/vault`
-2. **Enable plugins**:
-   - Core: Files & Links, Templates, Daily notes
-   - Community: Obsidian Git (for auto-sync)
-3. **Configure Obsidian Git**:
-   - Vault backup interval: 10 minutes
-   - Auto pull interval: 5 minutes
-   - **Important**: Disable "Commit all changes" or configure to NOT use `git add -A`
+**Q: What orchestrators are supported?**  
+A: Any system that can run bash scripts and git commands. Tested with Grok Bot, Cursor, Claude Desktop, and Hermes. The skills are framework-agnostic.
 
-Obsidian gives you:
-- Graph view of wikilinks
-- Visual editor for notes
-- Backlinks panel (what links here)
-- Search across vault
-- Canvas for visual organization
+**Q: How do I backup the vault?**  
+A: The git remote is your backup. Push to GitHub/GitLab (private repo), and your entire history is preserved. For extra safety, push to multiple remotes.
 
-But agents work fine without Obsidian — it's just plain markdown + git.
+## Limitations
 
-## Comparison to alternatives
+- **Git required:** Agents must have git installed and configured
+- **No real-time sync:** Changes propagate on pull/push, not instantly
+- **Merge conflicts possible:** Multiple writers can conflict if they edit the same file
+- **No built-in access control:** All agents can read all files (use separate vaults for sensitive projects)
+- **Markdown only:** Structured data (CSV, JSON) is supported but not validated
+- **No schema enforcement:** Frontmatter and note structure are conventions, not hard constraints
+- **Obsidian optional:** Graph view and backlinks require Obsidian; agents work without it
+- **Network dependency:** Push/pull require network access (local-only workflows need manual sync)
+
+## Security
+
+This plugin follows Cursor/Grok Bot marketplace security guidelines:
+
+✅ **No `curl | bash`** — All scripts are committed and reviewable  
+✅ **No secret reads** — Never accesses credentials or environment secrets  
+✅ **No obfuscation** — All code is plain bash and markdown  
+✅ **No prompt injection** — Skills contain instructions only, no dynamic prompts  
+✅ **Scoped scripts** — Helper scripts operate only on the vault directory  
+
+The plugin:
+- Never modifies files outside `$VAULT_PATH`
+- Never executes remote code
+- Never reads or writes secrets
+- Only uses standard git commands (`pull`, `push`, `commit`, `add`, `rebase`)
+
+## Comparison to Alternatives
 
 | Feature | Second Brain | Mem0 | Supermemory | Vertiso |
 |---|---|---|---|---|
 | **Storage** | Your git repo | Hosted DB | Hosted DB | Hosted DB |
 | **Format** | Plain markdown | Proprietary | Proprietary | Proprietary |
 | **Portability** | Full export anytime | API only | API only | API only |
-| **Obsidian compat** | Yes | No | No | No |
+| **Obsidian compatible** | Yes | No | No | No |
 | **Multi-agent sync** | Git protocol | API concurrency | API concurrency | API concurrency |
-| **Version history** | Git log | Limited | Limited | Limited |
+| **Version history** | Full git log | Limited | Limited | Limited |
 | **Cost** | Free (your infra) | Paid tiers | Paid tiers | Paid tiers |
 | **Privacy** | Your control | Vendor ToS | Vendor ToS | Vendor ToS |
 | **Graph view** | Obsidian | No | No | Limited |
-
-## Testing
-
-See `tests/` directory for:
-- Throwaway vault creation
-- Concurrent writer simulation
-- Forced conflict handling
-- Link check validation
-
-Run tests:
-
-```bash
-cd /workspace/second-brain
-./tests/test-plugin.sh
-```
-
-(Test suite created during development; see PR for results)
-
-## Roadmap / future enhancements
-
-- [ ] Dataview query helpers (SQL-like queries over frontmatter)
-- [ ] Auto-tagging based on content analysis
-- [ ] Periodic "synthesis" skill (weekly connections across notes)
-- [ ] Integration with Obsidian Publish (public subset of vault)
-- [ ] Conflict resolution heuristics (auto-resolve certain conflict types)
-- [ ] Link suggestion (when writing a note, suggest relevant wikilinks)
+| **Works offline** | Yes (local git) | No | No | No |
 
 ## Contributing
 
-This plugin is part of the `grokbot-plugins` monorepo:
+This plugin is part of the `grokbot-plugins` monorepo. To contribute:
 
-```
-grokbot-plugins/
-├── second-brain/        # This plugin
-├── ethereum-builder/    # Planned
-├── creator-voice/       # Planned
-└── skill-vetter/        # Planned
-```
-
-To contribute:
-1. Fork the repo
+1. Fork: https://github.com/andreolf/grokbot-plugins
 2. Create a branch: `git checkout -b feature/your-feature`
-3. Make changes, test thoroughly
-4. Submit PR with description and test results
+3. Make changes and test thoroughly
+4. Submit a PR with description and test results
+
+## Testing
+
+Run the test suite:
+
+```bash
+cd second-brain
+./tests/test-plugin.sh        # Functional tests
+./tests/validate-plugin.sh    # Schema and frontmatter validation
+```
+
+Tests cover:
+- Bootstrap vault from scratch
+- Concurrent writer simulation
+- Conflict resolution
+- Explicit path staging verification
+- Broken wikilink detection
+- Frontmatter validation
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for version history.
 
 ## License
 
@@ -449,16 +477,12 @@ MIT License — see [LICENSE](LICENSE)
 
 Francesco Andreoli ([@francescoswiss](https://twitter.com/francescoswiss))
 
-Built from a working 15-agent Obsidian vault deployed in production. Generalized for the Cursor/Grok Bot marketplace based on ClawHub demand analysis and marketplace gap research.
+Built from a working 15-agent Obsidian vault deployed in production. Generalized for the marketplace based on ClawHub demand analysis.
 
 ## Links
 
-- [Grok Bot Marketplace](#) (TBD: marketplace listing)
-- [ClawHub](https://clawhub.ai) (OpenClaw skill registry)
-- [Obsidian](https://obsidian.md) (Note-taking app)
-- [Karpathy LLM-wiki pattern](https://twitter.com/karpathy) (The mental model)
-
-## Support
-
-- GitHub Issues: [andreolf/grokbot-plugins](https://github.com/andreolf/grokbot-plugins/issues)
-- Twitter: [@francescoswiss](https://twitter.com/francescoswiss)
+- [GitHub Repository](https://github.com/andreolf/grokbot-plugins)
+- [Submit an Issue](https://github.com/andreolf/grokbot-plugins/issues)
+- [Cursor Plugins](https://cursor.com/marketplace)
+- [Grok Bot Marketplace](https://x.ai/bot/marketplace)
+- [Obsidian](https://obsidian.md)
