@@ -1,14 +1,6 @@
 ---
 name: safe-sync
 description: Safely commit and push vault changes with explicit path staging, rebase-then-push, and conflict handling. NEVER use 'git add -A' or 'git add .' — always stage only the specific files you created or modified. Required after any vault write.
-metadata:
-  surfaces:
-    - ide
-    - cloud
-  triggers:
-    - after writing files
-    - committing changes
-    - pushing to remote
 ---
 
 # Safe Sync

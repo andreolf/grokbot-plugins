@@ -1,14 +1,6 @@
 ---
 name: bootstrap-vault
 description: Set up a new Obsidian vault from scratch with proper folder structure, protocol file, templates, and git configuration. Use when a user needs to create their first second-brain vault.
-metadata:
-  surfaces:
-    - ide
-    - cloud
-  triggers:
-    - new vault setup
-    - first-time user
-    - vault initialization
 ---
 
 # Bootstrap Vault

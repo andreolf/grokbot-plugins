@@ -1,15 +1,6 @@
 ---
 name: write-note
 description: Create or update notes in the vault following proper conventions for filenames, frontmatter, wikilinks, and agent folder structure. Use when creating outputs, capturing learnings, or processing inbox items.
-metadata:
-  surfaces:
-    - ide
-    - cloud
-  triggers:
-    - creating notes
-    - capturing output
-    - processing inbox
-    - updating knowledge base
 ---
 
 # Write Note

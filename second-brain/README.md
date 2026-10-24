@@ -55,7 +55,30 @@ Based on a working 15-agent Obsidian vault. The attached protocol (`AGENTS.md`) 
 
 ### 1. Install the plugin
 
-(Instructions for Cursor/Grok Bot marketplace installation TBD based on publishing process)
+**From Cursor/Grok Bot marketplace:**
+```
+cursor install second-brain
+```
+
+Or visit the [Cursor marketplace](https://cursor.com/marketplace) and search for "Second Brain".
+
+**Manual installation** (for development):
+```bash
+# Clone the repository
+git clone https://github.com/andreolf/grokbot-plugins
+cd grokbot-plugins/second-brain
+
+# The plugin structure:
+# second-brain/
+# ├── .cursor-plugin/
+# │   └── plugin.json       # Plugin manifest
+# ├── skills/               # 7 skills
+# ├── scripts/              # Helper scripts
+# └── README.md
+
+# In Cursor: Settings → Plugins → Install from Local Path
+# Point to: /path/to/grokbot-plugins/second-brain
+```
 
 ### 2. Configure vault path
 

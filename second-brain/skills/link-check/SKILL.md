@@ -1,15 +1,6 @@
 ---
 name: link-check
 description: Check for broken wikilinks, orphaned notes, and link graph integrity in the vault. Use periodically or before major changes to maintain vault health.
-metadata:
-  surfaces:
-    - ide
-    - cloud
-  triggers:
-    - maintenance task
-    - after bulk changes
-    - periodic health check
-    - before archiving files
 ---
 
 # Link Check

@@ -1,14 +1,6 @@
 ---
 name: vault-session-start
 description: Pull the vault and read core protocol + notes at the start of every session and new task. Load this skill BEFORE any work in the vault to ensure you have the latest state and understand the rules.
-metadata:
-  surfaces:
-    - ide
-    - cloud
-  triggers:
-    - start of session
-    - new task
-    - first vault interaction
 ---
 
 # Vault Session Start

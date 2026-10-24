@@ -1,0 +1,30 @@
+{
+  "name": "second-brain",
+  "displayName": "Second Brain",
+  "version": "1.0.0",
+  "description": "Shared, user-owned memory for AI agents in a plain-markdown Obsidian vault synced through git. Gives any team of agents persistent context, learned patterns, and a growing knowledge base.",
+  "author": {
+    "name": "Francesco Andreoli",
+    "email": "francesco@francescoswiss.com"
+  },
+  "homepage": "https://github.com/andreolf/grokbot-plugins/tree/main/second-brain",
+  "repository": "https://github.com/andreolf/grokbot-plugins",
+  "license": "MIT",
+  "keywords": [
+    "memory",
+    "obsidian",
+    "git",
+    "knowledge-management",
+    "multi-agent",
+    "markdown",
+    "vault",
+    "self-improving"
+  ],
+  "category": "productivity",
+  "tags": [
+    "note-taking",
+    "collaboration",
+    "knowledge-base"
+  ],
+  "skills": "skills/"
+}

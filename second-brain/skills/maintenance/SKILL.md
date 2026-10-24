@@ -1,15 +1,6 @@
 ---
 name: maintenance
 description: Maintain vault health by updating index.md and log.md when adding or modifying knowledge base notes. Use automatically after creating or substantially modifying notes in Notes/, Ideas/, or Projects/.
-metadata:
-  surfaces:
-    - ide
-    - cloud
-  triggers:
-    - after creating note
-    - after modifying note
-    - knowledge base update
-    - processing inbox
 ---
 
 # Maintenance

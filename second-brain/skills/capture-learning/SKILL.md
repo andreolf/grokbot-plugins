@@ -1,15 +1,6 @@
 ---
 name: capture-learning
 description: Capture learnings, errors, corrections, and decisions back to the vault at the end of a task. Implements the self-improving agent pattern by recording what worked, what failed, and what to do differently next time.
-metadata:
-  surfaces:
-    - ide
-    - cloud
-  triggers:
-    - end of task
-    - after completing work
-    - error resolution
-    - significant decision
 ---
 
 # Capture Learning
