@@ -53,11 +53,6 @@ https://github.com/andreolf/grokbot-plugins/tree/main/second-brain
 Francesco Andreoli
 ```
 
-### Author Email
-```
-francesco@francescoswiss.com
-```
-
 ### Plugin Path in Repository
 ```
 second-brain
@@ -345,9 +340,9 @@ unset VAULT_PATH
 
 ## Tests Run
 
-- [x] Plugin installation
+**Tests run in VM (development environment):**
 - [x] Vault bootstrap (folder structure, protocol, templates, git init)
-- [x] First agent session (pull, read protocol, create agent folder)
+- [x] First agent session simulation (pull, read protocol, create agent folder)
 - [x] Write note with proper frontmatter
 - [x] Safe sync (explicit paths, commit, push)
 - [x] Concurrent agents (two agents pushing, rebase handling)
@@ -355,6 +350,13 @@ unset VAULT_PATH
 - [x] Link check (broken wikilinks detected)
 - [x] Schema validation (plugin.json against official schema)
 - [x] Frontmatter validation (all 7 skills have required fields)
+
+**Pending for author to test after marketplace approval:**
+- [ ] Plugin installation in Grok Bot app
+- [ ] Plugin installation in Cursor IDE
+- [ ] End-to-end workflow in production Grok Bot environment
+
+The VM tests validate the core functionality (git operations, sync logic, conflict handling, validation). In-app installation and orchestrator-specific workflows will be verified by the author after the plugin is listed in the marketplace.
 
 ## Security Review Notes
 
@@ -381,4 +383,3 @@ The plugin follows all Cursor/Grok Bot marketplace security guidelines:
 
 - Issues: https://github.com/andreolf/grokbot-plugins/issues
 - Documentation: https://github.com/andreolf/grokbot-plugins/tree/main/second-brain
-- Author: francesco@francescoswiss.com

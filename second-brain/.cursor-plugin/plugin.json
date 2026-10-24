@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "description": "Orchestrator-agnostic shared memory for AI agents. One git-backed Obsidian vault acts as the single source of truth that every agent reads at session start and safely writes back to with explicit-path commits.",
   "author": {
-    "name": "Francesco Andreoli",
-    "email": "francesco@francescoswiss.com"
+    "name": "Francesco Andreoli"
   },
   "homepage": "https://github.com/andreolf/grokbot-plugins/tree/main/second-brain",
   "repository": "https://github.com/andreolf/grokbot-plugins",

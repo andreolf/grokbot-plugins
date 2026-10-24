@@ -6,7 +6,7 @@
 
 ## What is Second Brain?
 
-A Cursor/Grok Bot plugin that gives teams of AI agents persistent, shared memory through a plain-markdown vault synced via git. Unlike hosted memory solutions (Mem0, Supermemory, Vertiso), your data lives in a git repository you control.
+A Cursor/Grok Bot plugin that gives teams of AI agents persistent, shared memory through a plain-markdown vault synced via git. Your data lives in a git repository you control.
 
 **Works with:**
 - **Grok Bot** — Multiple bots on one box, each with its own folder
@@ -68,11 +68,11 @@ sequenceDiagram
 
 2. **Bootstrap a vault:**
    ```bash
-   # Set vault path
-   export VAULT_PATH="/home/box/second-brain"
+   # Set vault path (configurable to any location)
+   export VAULT_PATH="~/second-brain"
    
    # In Grok Bot chat, load the bootstrap-vault skill:
-   # "Bootstrap a new second-brain vault at /home/box/second-brain"
+   # "Bootstrap a new second-brain vault at ~/second-brain"
    
    # The skill creates:
    # - Folder structure (Agents/, Notes/, Ideas/, Projects/, etc.)
@@ -372,8 +372,8 @@ Example learnings log:
 
 ## FAQ
 
-**Q: How is this different from Mem0, Supermemory, or Vertiso?**  
-A: Those are hosted vector databases with proprietary formats. Second Brain is plain markdown in your own git repo. You can read, edit, and version every file. No vendor lock-in.
+**Q: How is this different from hosted memory services?**  
+A: This plugin uses git and plain markdown instead of a hosted database. You can read, edit, and version every file. Your data stays in your own repository with no vendor lock-in.
 
 **Q: What if two agents modify the same file?**  
 A: Git rebase will detect the conflict. If it's your file, resolve it. If it's outside your write scope (e.g., another agent's folder), abort and propose the change via `Inbox/` instead.
@@ -391,7 +391,7 @@ A: Git handles thousands of markdown files efficiently. For extreme scale (10k+ 
 A: Yes. Share the private git repo with your team. Each person's agents write to separate folders. Humans and agents all pull/push to the same remote.
 
 **Q: What orchestrators are supported?**  
-A: Any system that can run bash scripts and git commands. Tested with Grok Bot, Cursor, Claude Desktop, and Hermes. The skills are framework-agnostic.
+A: Any system that can run bash scripts and git commands. The skills are framework-agnostic and designed to work with Grok Bot, Cursor, Claude Desktop, Hermes, and other agent orchestrators.
 
 **Q: How do I backup the vault?**  
 A: The git remote is your backup. Push to GitHub/GitLab (private repo), and your entire history is preserved. For extra safety, push to multiple remotes.
@@ -423,20 +423,39 @@ The plugin:
 - Never reads or writes secrets
 - Only uses standard git commands (`pull`, `push`, `commit`, `add`, `rebase`)
 
-## Comparison to Alternatives
+## Why Git + Markdown?
 
-| Feature | Second Brain | Mem0 | Supermemory | Vertiso |
-|---|---|---|---|---|
-| **Storage** | Your git repo | Hosted DB | Hosted DB | Hosted DB |
-| **Format** | Plain markdown | Proprietary | Proprietary | Proprietary |
-| **Portability** | Full export anytime | API only | API only | API only |
-| **Obsidian compatible** | Yes | No | No | No |
-| **Multi-agent sync** | Git protocol | API concurrency | API concurrency | API concurrency |
-| **Version history** | Full git log | Limited | Limited | Limited |
-| **Cost** | Free (your infra) | Paid tiers | Paid tiers | Paid tiers |
-| **Privacy** | Your control | Vendor ToS | Vendor ToS | Vendor ToS |
-| **Graph view** | Obsidian | No | No | Limited |
-| **Works offline** | Yes (local git) | No | No | No |
+This plugin uses git and markdown as the foundation for agent memory. Here's why:
+
+### Git for Version Control
+- **Complete history:** Every change is tracked with who, what, and when
+- **Branching:** Experiment with changes in isolation before merging
+- **Distributed:** Every clone is a full backup
+- **Standard tooling:** Works with GitHub, GitLab, and any git host
+- **Conflict resolution:** Built-in tools for handling concurrent edits
+
+### Markdown for Content
+- **Plain text:** Human and machine readable, no parsing dependencies
+- **Portable:** Works everywhere, survives tool changes
+- **Diff-friendly:** Git can show line-by-line changes
+- **Obsidian-compatible:** Optional graph view and backlinks
+- **No vendor lock-in:** Your notes work without this plugin or Obsidian
+
+### User-Owned Storage
+- **Your repository:** You control where data lives (GitHub, GitLab, self-hosted)
+- **Your keys:** Manage access through git credentials, not vendor APIs
+- **Your privacy:** No third-party sees your data unless you share the repo
+- **Your backups:** Push to multiple remotes for redundancy
+- **Your terms:** No service ToS, no usage limits, no subscription
+
+### Multi-Agent Coordination
+Git's rebase and merge mechanisms handle concurrent writes naturally:
+- Agents write to separate folders (minimizes conflicts)
+- Explicit path staging prevents accidental overwrites
+- Rebase with retries handles simultaneous pushes
+- Merge conflicts are detected and can be resolved or aborted
+
+This approach trades real-time sync for reliability, auditability, and user control.
 
 ## Contributing
 
@@ -476,8 +495,6 @@ MIT License — see [LICENSE](LICENSE)
 ## Author
 
 Francesco Andreoli ([@francescoswiss](https://twitter.com/francescoswiss))
-
-Built from a working 15-agent Obsidian vault deployed in production. Generalized for the marketplace based on ClawHub demand analysis.
 
 ## Links
 

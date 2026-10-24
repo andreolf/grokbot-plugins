@@ -1,8 +1,7 @@
 {
   "name": "grokbot-plugins",
   "owner": {
-    "name": "Francesco Andreoli",
-    "email": "francesco@francescoswiss.com"
+    "name": "Francesco Andreoli"
   },
   "metadata": {
     "description": "Cursor/Grok Bot plugins for AI agent teams: git-based memory, EVM development, creator workflows, and skill security"
