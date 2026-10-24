@@ -1,0 +1,34 @@
+{
+  "name": "second-brain",
+  "displayName": "Second Brain",
+  "version": "1.0.0",
+  "description": "Orchestrator-agnostic shared memory for AI agents. One git-backed Obsidian vault acts as the single source of truth that every agent reads at session start and safely writes back to with explicit-path commits.",
+  "author": {
+    "name": "Francesco Andreoli"
+  },
+  "homepage": "https://github.com/andreolf/grokbot-plugins/tree/main/second-brain",
+  "repository": "https://github.com/andreolf/grokbot-plugins",
+  "license": "MIT",
+  "logo": "assets/logo.svg",
+  "keywords": [
+    "memory",
+    "obsidian",
+    "git",
+    "knowledge-management",
+    "multi-agent",
+    "markdown",
+    "vault",
+    "self-improving",
+    "shared-context",
+    "agent-memory",
+    "wikilinks",
+    "knowledge-graph"
+  ],
+  "category": "productivity",
+  "tags": [
+    "note-taking",
+    "collaboration",
+    "knowledge-base"
+  ],
+  "skills": "skills/"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "grokbot-plugins",
+  "owner": {
+    "name": "Francesco Andreoli"
+  },
+  "metadata": {
+    "description": "Cursor/Grok Bot plugins for AI agent teams: git-based memory, EVM development, creator workflows, and skill security"
+  },
+  "plugins": [
+    {
+      "name": "second-brain",
+      "source": "second-brain",
+      "description": "Shared, user-owned memory for AI agents in a plain-markdown Obsidian vault synced through git"
+    }
+  ]
+}
