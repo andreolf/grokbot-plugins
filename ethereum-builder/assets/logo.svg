@@ -1,0 +1,47 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#627EEA"/>
+  
+  <!-- Ethereum diamond logo (simplified) -->
+  <g id="eth-logo">
+    <!-- Top pyramid -->
+    <path d="M 256 140 L 340 280 L 256 240 L 172 280 Z" fill="#FFFFFF" opacity="0.8"/>
+    <path d="M 256 140 L 256 240 L 340 280 Z" fill="#FFFFFF" opacity="0.6"/>
+    <path d="M 256 140 L 256 240 L 172 280 Z" fill="#FFFFFF" opacity="0.9"/>
+    
+    <!-- Bottom pyramid -->
+    <path d="M 256 265 L 340 295 L 256 360 L 172 295 Z" fill="#FFFFFF" opacity="0.8"/>
+    <path d="M 256 265 L 256 360 L 340 295 Z" fill="#FFFFFF" opacity="0.6"/>
+    <path d="M 256 265 L 256 360 L 172 295 Z" fill="#FFFFFF" opacity="0.9"/>
+  </g>
+  
+  <!-- Tools icons around the diamond -->
+  <!-- Magnifying glass (research) -->
+  <g id="research" transform="translate(380, 200)">
+    <circle cx="0" cy="0" r="18" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+    <line x1="13" y1="13" x2="25" y2="25" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Chart bars (analytics) -->
+  <g id="analytics" transform="translate(385, 300)">
+    <rect x="-8" y="5" width="5" height="15" fill="#FFFFFF"/>
+    <rect x="-1" y="0" width="5" height="20" fill="#FFFFFF"/>
+    <rect x="6" y="8" width="5" height="12" fill="#FFFFFF"/>
+  </g>
+  
+  <!-- Code brackets (building) -->
+  <g id="code" transform="translate(132, 200)">
+    <path d="M -5 -10 L -15 0 L -5 10" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 5 -10 L 15 0 L 5 10" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Shield (security/diligence) -->
+  <g id="shield" transform="translate(127, 300)">
+    <path d="M 0 -10 L 10 -5 L 10 5 L 0 12 L -10 5 L -10 -5 Z" fill="#FFFFFF"/>
+    <path d="M 0 -5 L 0 8 L -6 4 L -6 -2 Z" fill="#627EEA"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="256" y="430" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Ethereum</text>
+  <text x="256" y="470" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Builder</text>
+</svg>

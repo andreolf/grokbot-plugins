@@ -5,7 +5,7 @@ Grok Bot / Cursor plugins by Francesco Andreoli (@francescoswiss). One folder pe
 | Plugin | Status |
 |---|---|
 | second-brain (Obsidian + git memory for many agents) | ✅ complete |
-| ethereum-builder (EVM building and onchain research) | planned |
+| ethereum-builder (EVM building and onchain research) | ✅ complete |
 | creator-voice (voice profile + humanizer) | planned |
 | skill-vetter (security check for skills and plugins) | planned |
 
