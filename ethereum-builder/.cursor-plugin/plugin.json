@@ -1,0 +1,34 @@
+{
+  "name": "ethereum-builder",
+  "displayName": "Ethereum Builder",
+  "version": "1.0.0",
+  "description": "Ethereum/EVM development and onchain research tools. Includes ethskills routing, Blockscout lookups, Dune analysis, token due diligence, and protocol research workflows for building and auditing dApps.",
+  "author": {
+    "name": "Francesco Andreoli"
+  },
+  "homepage": "https://github.com/andreolf/grokbot-plugins/tree/main/ethereum-builder",
+  "repository": "https://github.com/andreolf/grokbot-plugins",
+  "license": "MIT",
+  "logo": "assets/logo.svg",
+  "keywords": [
+    "ethereum",
+    "evm",
+    "solidity",
+    "blockchain",
+    "dapp",
+    "onchain",
+    "defi",
+    "web3",
+    "smart-contracts",
+    "dune",
+    "blockscout",
+    "ethskills"
+  ],
+  "category": "infrastructure",
+  "tags": [
+    "development",
+    "research",
+    "analytics"
+  ],
+  "skills": "skills/"
+}

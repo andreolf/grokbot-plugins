@@ -11,6 +11,11 @@
       "name": "second-brain",
       "source": "second-brain",
       "description": "Shared, user-owned memory for AI agents in a plain-markdown Obsidian vault synced through git"
+    },
+    {
+      "name": "ethereum-builder",
+      "source": "ethereum-builder",
+      "description": "Ethereum/EVM development and onchain research tools. Includes ethskills routing, Blockscout lookups, Dune analysis, token due diligence, and protocol research workflows"
     }
   ]
 }
