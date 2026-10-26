@@ -170,12 +170,7 @@ N/A (initial release).
 
 ### Gap Filled
 
-**Gap:** Zero EVM developer tooling in the current marketplace (482 plugins, 0 for Ethereum dev).
-
-From audit report:
-> "EVM developer tooling and onchain data: zero. No Etherscan, Blockscout, Dune, Alchemy, Infura, thirdweb, Foundry or Solidity plugin."
-
-This plugin fills the largest gap in the catalog.
+At the time of writing we found no dedicated Ethereum/EVM developer plugin in the marketplace. This plugin provides comprehensive tools for building and researching Ethereum applications.
 
 ### Value Proposition
 
