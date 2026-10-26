@@ -82,7 +82,7 @@ Each platform has different norms:
 - Length: 200-260 characters ideal (leave room for engagement)
 - Style: Punchy, direct, line breaks
 - Media: Video thumbnails or short clips work well
-- Hashtags: 0-2 max, only if they add value
+- Hashtags: Default to no hashtags unless voice profile explicitly allows them
 - Format: Hook → Insight/quote → Link
 
 **LinkedIn:**
@@ -108,10 +108,11 @@ Load the voice profile and apply:
 - Tone and personality
 - Sentence structure
 - Emoji usage
-- Hashtag style
+- Hashtag style (default: no hashtags unless profile specifies otherwise)
+- List format (e.g., '> ' prefix) and list length (e.g., exactly 10 items) if specified
 - Do's and don'ts
 
-If no profile, use platform best practices.
+If no profile, use platform best practices (default: no hashtags).
 
 ### 5. Draft the Posts
 
@@ -218,8 +219,8 @@ Watch: https://youtu.be/example
 - ✅ Casual, first-person tone
 - ✅ Short sentences
 - ✅ Technical but accessible
-- ✅ No emoji (profile: rare emoji, used none here)
-- ✅ No hashtags (per profile)
+- ✅ No emoji (profile: very rare emoji, used none here)
+- ✅ No hashtags (profile: no hashtags)
 - ✅ Practical, no fluff
 
 **Post variety:**
@@ -278,6 +279,8 @@ From our conversation about [topic]: [link]
 - Forget to link to the video
 - Publish automatically (always draft only)
 - Use generic hooks ("Check out this video")
+- Add hashtags unless the voice profile explicitly allows them (default: no hashtags)
+- Ignore list format or list length specified in profile (e.g., if profile says "exactly 10 items with '> ' prefix", follow that)
 
 ## Output Format
 

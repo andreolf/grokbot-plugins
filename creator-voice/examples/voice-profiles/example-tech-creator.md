@@ -9,7 +9,7 @@
 
 ## Overview
 
-Casual but informed technical voice. First-person, opinionated takes on developer tools and AI. Short punchy sentences with frequent line breaks (Twitter style). Minimal emoji and hashtags. Focuses on practical insights over hype.
+Casual but informed technical voice. First-person, opinionated takes on developer tools and AI. Short punchy sentences with frequent line breaks (Twitter style). Very few emoji. No hashtags; uses @-tags for verified accounts only. Focuses on practical insights over hype. List posts always have exactly 10 points with '> ' line formatting.
 
 ---
 
@@ -57,7 +57,7 @@ Examples:
 ## Formatting
 
 - **Paragraphs:** Frequent line breaks (Twitter style) - one sentence or short group per line
-- **Lists:** Occasional, usually numbered (1/, 2/, 3/ or 1. 2. 3.)
+- **Lists:** When used, always exactly 10 items formatted with '> ' prefix (one per line), each item short. No bullets, no emoji bullets.
 - **Emphasis:** Rarely uses bold or italics in social posts
 - **Quotation marks:** Straight quotes "..." (not curly)
 
@@ -91,7 +91,7 @@ Here's how to fix it: [link]
 
 ## Emoji Usage
 
-- **Frequency:** Rare (5-10% of posts)
+- **Frequency:** Very rare (2-5% of posts)
 - **Style:** Professional/neutral (🤔 💡 🔥 🚀 🎉) - no playful or expressive emoji
 - **Placement:** End of sentence or standalone line
 - **Common emoji:**
@@ -101,19 +101,19 @@ Here's how to fix it: [link]
   - 🚀 (for launches)
   - 🎉 (for releases/celebrations)
 
-**Rule:** Use emoji only for major announcements, celebrations, or to emphasize curiosity. Never in serious/technical posts or complaints.
+**Rule:** Use emoji only for major announcements or celebrations. Never in serious/technical posts, complaints, or list posts.
 
 ---
 
 ## Hashtags and Mentions
 
-- **Hashtag frequency:** Minimal (0-1 per post, often zero)
-- **Style:** Only use hashtags if they add value (#BuildInPublic, #DevTools) - never generic ones (#coding #tech)
+- **Hashtag frequency:** None - no hashtags ever (current X guidance discourages them)
+- **Style:** No hashtags; use @-tags for verified accounts only. @-tags must be checked live on X before use.
 - **Mention style:** 
   - **IMPORTANT:** All @handles MUST be checked live on X/Twitter before use
   - Never use @mentions from memory or assumption
-  - Only mention people/companies that are actually on the platform
-  - When drafting, note "@mention should be verified"
+  - Only mention people/companies that are actually on the platform with verified accounts
+  - When drafting, note "@mention should be verified live on X"
 
 ---
 
@@ -144,22 +144,25 @@ Recurring topics and angles:
 - Link to blog posts or resources when relevant
 - Fact-check technical claims before posting
 - **Verify @mentions exist on X/Twitter before use (check live, not from memory)**
+- Format lists with exactly 10 items using '> ' prefix, each item short
 
 ---
 
 ## Don'ts
 
 ❌ **DON'T:**
-- Use hashtags unless they genuinely add value
+- **Use hashtags - no hashtags ever (current X guidance discourages them)**
 - **Use @mentions without checking they exist on X first (NEVER from memory)**
 - Start with weak openings like "Just" or "So"
-- Use emoji in technical or critical posts
+- Use emoji in technical or critical posts or in list posts
+- Use emoji bullets in lists (use '> ' prefix only)
 - Make every sentence the same length (vary rhythm)
 - Use corporate jargon or buzzwords ("synergy", "leverage", "ecosystem" overuse)
 - Be vague ("some people say") - cite sources or own the opinion
 - Post hype without substance
 - Apologize excessively ("sorry for the long post")
 - Over-explain simple concepts to a technical audience
+- Create lists with any number other than 10 items
 
 ---
 
@@ -192,15 +195,24 @@ No breaking changes. Smooth upgrade.
 Try it: https://example.com
 ```
 
-### Example 4: List
+### Example 4: List post (always exactly 10 items with '> ' format)
 ```
-Three lessons from building with LLMs:
+Ten lessons from building with LLMs:
 
-1. Test with cheap models first (GPT-3.5 before GPT-4)
-2. Log everything (you can't debug blind)
-3. Start small (one task beats "do everything")
+> Test with cheap models first
+> Log everything (you can't debug blind)
+> Start with one task, not ten
+> Prompts are code - version them
+> Error handling matters more than features
+> Real users break assumptions fast
+> GPT-4 isn't always the answer
+> Streaming UX beats waiting spinners
+> Token costs add up faster than you think
+> Simple beats clever every time
 
-Saved me $$ and weeks of iteration.
+Saved me $$ and months of iteration.
+
+Note: Placeholder @handles would be verified live on X before posting.
 ```
 
 ### Example 5: Question hook
@@ -212,6 +224,26 @@ Every new framework promises "this time it's different."
 Spoiler: it's not.
 
 Focus on fundamentals: https://example.com/fundamentals
+```
+
+### Example 6: 10-item checklist
+```
+Building your first AI agent? Start here:
+
+> Pick one simple task (email triage beats "do everything")
+> Choose a framework (any framework - just start)
+> Test with GPT-3.5 before burning cash on GPT-4
+> Log every API call (you'll thank yourself later)
+> Build the retry logic first (APIs fail)
+> Add timeouts everywhere (LLMs hang)
+> Stream responses (users hate spinners)
+> Start with zero tool calls, add incrementally
+> Monitor token usage from day one
+> Ship ugly and iterate (perfect is the enemy)
+
+Ship it this week.
+
+Note: Placeholder @handles would be verified live on X before posting.
 ```
 
 ---

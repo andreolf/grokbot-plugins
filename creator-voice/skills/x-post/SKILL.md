@@ -54,7 +54,8 @@ Follow the voice profile guidelines:
 - Match sentence length from profile
 - Use line breaks as specified in profile
 - Follow emoji frequency/placement rules
-- Apply hashtag style (or avoid if profile says so)
+- Apply hashtag style from profile (default: no hashtags unless profile specifies otherwise)
+- Honor list format (e.g., '> ' prefix) and list length (e.g., exactly 10 items) if specified in profile
 - Use first-person/third-person as profile indicates
 
 **Mentions:** If the profile says "check @handles live on X before use," note that handles should be verified.
@@ -115,8 +116,8 @@ Still cool. But let's not pretend it's AGI.
 - ✅ Hook: "Hot take" (profile lists this as common opener)
 - ✅ Line breaks after each sentence (profile: frequent breaks)
 - ✅ First-person opinion (profile: opinionated voice)
-- ✅ No emoji (profile: rare emoji)
-- ✅ No hashtags (profile: minimal hashtags)
+- ✅ No emoji (profile: very rare emoji)
+- ✅ No hashtags (profile: no hashtags)
 - ✅ Casual but informed tone (matches profile)
 
 ## Tips
@@ -135,8 +136,9 @@ Still cool. But let's not pretend it's AGI.
 - Publish automatically (always draft only)
 - Ignore the voice profile Do's/Don'ts
 - Use @mentions without verifying they exist (if profile requires it)
-- Add hashtags if the profile says "minimal hashtags"
-- Use emoji heavily if the profile says "rare emoji"
+- Add hashtags unless the profile explicitly allows them (default: no hashtags)
+- Use emoji heavily if the profile says "rare" or "very rare emoji"
+- Ignore list format or list length specified in profile (e.g., if profile says "exactly 10 items with '> ' prefix", follow that)
 - Make every sentence the same length (vary rhythm)
 
 ## Output Format

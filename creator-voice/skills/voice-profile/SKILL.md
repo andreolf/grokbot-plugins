@@ -145,8 +145,12 @@ Common opening phrases:
 
 - **Paragraphs:** [frequent line breaks (Twitter style) / standard paragraphs]
 - **Lists:** [frequent / occasional / rare]
+  - **List format:** [e.g., '> ' prefix, numbered (1/, 2/, 3/), bullet points, emoji bullets]
+  - **List length:** [e.g., always exactly 10 items, varies, typically 3-5 items]
 - **Emphasis:** [bold for X, italics for Y, CAPS for Z]
 - **Quotation marks:** [straight "..." / curly "..." / minimal]
+
+**Note:** If the creator has consistent list formatting (e.g., always uses '> ' lines, always exactly 10 items), capture that as a strict rule.
 
 ## Vocabulary
 
@@ -164,9 +168,11 @@ Common opening phrases:
 
 ## Hashtags and Mentions
 
-- **Hashtag frequency:** [X per post on average]
-- **Style:** [#CamelCase / #lowercase / minimal hashtags]
+- **Hashtag frequency:** [none / X per post on average]
+- **Style:** [none / #CamelCase / #lowercase / minimal hashtags]
 - **Mention style:** [@handles checked live before posting / @handles from memory]
+
+**Note:** If the creator uses no hashtags, explicitly state "none" and explain the reasoning (e.g., "no hashtags - current X guidance discourages them" or "no hashtags - prefers @-tags for verified accounts only").
 
 ## Content Themes
 

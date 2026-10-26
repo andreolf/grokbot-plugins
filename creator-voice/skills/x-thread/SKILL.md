@@ -76,6 +76,8 @@ Each tweet in the thread should:
 - Follow the profile's line break preferences
 - Apply emoji rules from profile
 - Use numbering if the profile does (1/, 2/, 3/ or 1. 2. 3.)
+- Honor list format (e.g., '> ' prefix) and list length (e.g., exactly 10 items) if specified in profile
+- Apply hashtag rules from profile (default: no hashtags unless profile specifies otherwise)
 
 **Threading:**
 Number tweets clearly: "1/8", "2/8", etc., or "1.", "2.", etc.
@@ -199,8 +201,8 @@ Questions? I'm here.
 - ✅ Short sentences throughout
 - ✅ Line breaks after each sentence (per profile)
 - ✅ Casual, first-person tone
-- ✅ One 💡 emoji for key insight (profile: rare emoji)
-- ✅ No hashtags (profile: minimal hashtags)
+- ✅ One 💡 emoji for key insight (profile: very rare emoji)
+- ✅ No hashtags (profile: no hashtags)
 - ✅ Practical, no fluff
 
 **Thread structure:**
@@ -265,6 +267,8 @@ Questions? I'm here.
 - Ignore the profile's voice (consistency matters)
 - Go over 280 characters per tweet
 - Use @mentions without verifying they exist (if profile requires it)
+- Add hashtags unless the profile explicitly allows them (default: no hashtags)
+- Ignore list format or list length specified in profile (e.g., if profile says "exactly 10 items with '> ' prefix", follow that)
 - Add too many threads (5-8 tweets is ideal)
 
 ## Output Format
