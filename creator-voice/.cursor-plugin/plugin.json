@@ -1,0 +1,36 @@
+{
+  "name": "creator-voice",
+  "displayName": "Creator Voice",
+  "version": "1.0.0",
+  "description": "Build reusable writing-voice profiles from social posts, draft content in your voice, and humanize AI-written text. Draft-only workflows for X/Twitter posts, threads, changelogs, and video-to-posts repurposing. Never publishes automatically.",
+  "author": {
+    "name": "Francesco Andreoli"
+  },
+  "homepage": "https://github.com/andreolf/grokbot-plugins/tree/main/creator-voice",
+  "repository": "https://github.com/andreolf/grokbot-plugins",
+  "license": "MIT",
+  "logo": "assets/logo.svg",
+  "keywords": [
+    "writing",
+    "voice",
+    "style",
+    "content",
+    "social-media",
+    "creator",
+    "humanizer",
+    "twitter",
+    "x",
+    "posts",
+    "threads",
+    "changelog",
+    "video",
+    "ghostwriting"
+  ],
+  "category": "productivity",
+  "tags": [
+    "writing",
+    "content-creation",
+    "social-media"
+  ],
+  "skills": "skills/"
+}

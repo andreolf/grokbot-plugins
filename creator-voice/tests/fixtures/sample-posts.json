@@ -1,0 +1,37 @@
+[
+  {
+    "text": "Just shipped a major update. No fluff, just features that actually matter.",
+    "created_at": "2026-10-20",
+    "engagement": 45
+  },
+  {
+    "text": "Here's the thing about AI agents: they're not magic. They're loops. Read -> decide -> execute. That's it.",
+    "created_at": "2026-10-21",
+    "engagement": 120
+  },
+  {
+    "text": "Why do we keep building the same broken patterns? 🤔",
+    "created_at": "2026-10-22",
+    "engagement": 67
+  },
+  {
+    "text": "Three lessons from today: 1) Test early 2) Ship often 3) Listen to users",
+    "created_at": "2026-10-23",
+    "engagement": 89
+  },
+  {
+    "text": "The best code is code you don't write.",
+    "created_at": "2026-10-24",
+    "engagement": 34
+  },
+  {
+    "text": "Hot take: most API docs are written for the person who built the API, not the person trying to use it.",
+    "created_at": "2026-10-25",
+    "engagement": 210
+  },
+  {
+    "text": "New post on my blog about developer experience: https://example.com/devex",
+    "created_at": "2026-10-26",
+    "engagement": 56
+  }
+]
