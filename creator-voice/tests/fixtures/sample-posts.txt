@@ -1,0 +1,16 @@
+Just shipped a major update. No fluff, just features that actually matter.
+
+Here's the thing about AI agents: they're not magic. They're loops. Read -> decide -> execute. That's it.
+
+Why do we keep building the same broken patterns? 🤔
+
+Three lessons from today:
+1) Test early
+2) Ship often
+3) Listen to users
+
+The best code is code you don't write.
+
+Hot take: most API docs are written for the person who built the API, not the person trying to use it.
+
+New post on my blog about developer experience: https://example.com/devex

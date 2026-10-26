@@ -11,6 +11,11 @@
       "name": "second-brain",
       "source": "second-brain",
       "description": "Shared, user-owned memory for AI agents in a plain-markdown Obsidian vault synced through git"
+    },
+    {
+      "name": "creator-voice",
+      "source": "creator-voice",
+      "description": "Build reusable writing-voice profiles, draft social content in your voice, and humanize AI text. Draft-only workflows for X posts, threads, changelogs, and video repurposing."
     }
   ]
 }
