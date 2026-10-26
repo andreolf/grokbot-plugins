@@ -13,6 +13,11 @@
       "description": "Shared, user-owned memory for AI agents in a plain-markdown Obsidian vault synced through git"
     },
     {
+      "name": "ethereum-builder",
+      "source": "ethereum-builder",
+      "description": "Ethereum/EVM development and onchain research tools. Includes ethskills routing, Blockscout lookups, Dune analysis, token due diligence, and protocol research workflows"
+    },
+    {
       "name": "creator-voice",
       "source": "creator-voice",
       "description": "Build reusable writing-voice profiles, draft social content in your voice, and humanize AI text. Draft-only workflows for X posts, threads, changelogs, and video repurposing."
