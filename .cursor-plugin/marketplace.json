@@ -21,6 +21,11 @@
       "name": "creator-voice",
       "source": "creator-voice",
       "description": "Build reusable writing-voice profiles, draft social content in your voice, and humanize AI text. Draft-only workflows for X posts, threads, changelogs, and video repurposing."
+    },
+    {
+      "name": "skill-vetter",
+      "source": "skill-vetter",
+      "description": "Security-first skill and plugin vetting for Cursor/Grok Bot. Check skills and plugins BEFORE installation for data exfiltration, credential reads, remote code execution, hidden instructions, and over-broad permissions. Reports pass/warn/fail verdicts with clear findings."
     }
   ]
 }

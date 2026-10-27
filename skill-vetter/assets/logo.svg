@@ -1,0 +1,13 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Shield background -->
+  <path d="M64 8 L104 24 L104 56 C104 80 88 100 64 112 C40 100 24 80 24 56 L24 24 Z" fill="#1a73e8"/>
+  <path d="M64 8 L104 24 L104 56 C104 80 88 100 64 112 C40 100 24 80 24 56 L24 24 Z" fill="none" stroke="#0d47a1" stroke-width="2"/>
+  
+  <!-- Checkmark -->
+  <path d="M48 60 L58 70 L80 48" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  
+  <!-- Lock icon (small, top right) -->
+  <circle cx="92" cy="28" r="10" fill="#ffd700"/>
+  <rect x="88" y="30" width="8" height="8" fill="#ffa500" rx="1"/>
+  <path d="M90 30 L90 26 Q90 24 92 24 Q94 24 94 26 L94 30" stroke="#ffa500" stroke-width="1.5" fill="none"/>
+</svg>
