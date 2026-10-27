@@ -1,0 +1,32 @@
+{
+  "name": "skill-vetter",
+  "displayName": "Skill Vetter",
+  "version": "1.0.0",
+  "description": "Security-first skill and plugin vetting for Cursor/Grok Bot. Check skills and plugins BEFORE installation for data exfiltration, credential reads, remote code execution, hidden instructions, and over-broad permissions. Reports pass/warn/fail verdicts with clear findings.",
+  "author": {
+    "name": "Francesco Andreoli"
+  },
+  "homepage": "https://github.com/andreolf/grokbot-plugins/tree/main/skill-vetter",
+  "repository": "https://github.com/andreolf/grokbot-plugins",
+  "license": "MIT",
+  "logo": "assets/logo.svg",
+  "keywords": [
+    "security",
+    "vetting",
+    "safety",
+    "audit",
+    "skill-scanner",
+    "plugin-security",
+    "static-analysis",
+    "code-review",
+    "trust",
+    "verification"
+  ],
+  "category": "productivity",
+  "tags": [
+    "security",
+    "code-analysis",
+    "plugin-tools"
+  ],
+  "skills": "skills/"
+}
